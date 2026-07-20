@@ -5,7 +5,7 @@ import io.github.kituin.chatimage.widget.PaddingSlider;
 import io.github.kituin.chatimage.client.ChatImageClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -85,7 +85,7 @@ public class LimitPaddingScreen extends Screen {
                 ChatImageClient.CONFIG.limitHeight, 1F, this.height, LimitSlider.LimitType.HEIGHT));
         adder.addChild(Button.builder(createTranslatableComponent("gui.back"), (button) -> {
             if (this.minecraft != null) {
-                this.minecraft.setScreen(this.parent);
+                setScreen(this.minecraft, this.parent);
             }
         }).build(), 2);
 // IF fabric-1.19.3
@@ -108,9 +108,9 @@ public class LimitPaddingScreen extends Screen {
 //        drawCenteredTextWithShadow(matrices, this.textRenderer, title, this.width / 2, this.height / 4 - 16, 16764108);
 //    }
 // ELSE
-    public void render(GuiGraphics matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        matrices.drawCenteredString(this.font, title, this.width / 2, this.height / 4 - 16, 16764108);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
+        graphics.centeredText(this.font, title, this.width / 2, this.height / 4 - 16, 16764108);
     }
 // END IF
 
@@ -150,7 +150,7 @@ public class LimitPaddingScreen extends Screen {
 // ELSE
     public <T extends GuiEventListener & Renderable & NarratableEntry> T addDrawableWeight(T element)
     {
-        return addDrawableWeight(element);
+        return this.addRenderableWidget(element);
 // END IF
     }
 }

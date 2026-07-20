@@ -3,7 +3,7 @@ package io.github.kituin.chatimage.integration;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.TextureFormat;
+import com.mojang.blaze3d.GpuFormat;
 import com.mojang.logging.LogUtils;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class NativeImageBackedTexture extends AbstractTexture implements Dumpabl
 // IF >= fabric-1.21.6
                             1,
 // END IF
-                            TextureFormat.RGBA8,
+                            GpuFormat.RGBA8_UNORM,
                             this.image.getWidth(),
                             this.image.getHeight(),
 // IF >= fabric-1.21.6
@@ -57,7 +57,7 @@ public class NativeImageBackedTexture extends AbstractTexture implements Dumpabl
 // IF >= fabric-1.21.6
                     1,
 // END IF
-                    TextureFormat.RGBA8,
+                    GpuFormat.RGBA8_UNORM,
                     this.image.getWidth(),
                     this.image.getHeight(),
 // IF >= fabric-1.21.6

@@ -7,7 +7,7 @@ import io.github.kituin.ChatImageCode.ClientStorage;
 import io.github.kituin.chatimage.tool.ChatImageStyle.ShowImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,6 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
-import net.minecraft.text.*;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2ic;
@@ -45,7 +44,7 @@ import static io.github.kituin.chatimage.client.ChatImageClient.CONFIG;
  *
  * @author kitUIN
  */
-@Mixin(GuiGraphics.class)
+@Mixin(GuiGraphicsExtractor.class)
 public abstract class DrawContextMixin {
     @Shadow
     @Nullable
@@ -78,7 +77,7 @@ public abstract class DrawContextMixin {
 //     public abstract void draw(Runnable drawCallback);
 // END IF
     @SuppressWarnings("t")
-    @Inject(at = @At("RETURN"), method = "renderComponentHoverEffect")
+    @Inject(at = @At("RETURN"), method = "componentHoverEffect")
     public void drawHoverEvent(Font textRenderer, Style style, int x, int y, CallbackInfo ci) {
         if (style != null && style.getHoverEvent() != null) {
             HoverEvent hoverEvent = style.getHoverEvent();
@@ -107,7 +106,7 @@ public abstract class DrawContextMixin {
 //                         this.matrices.push();
 // END IF
 // IF >= fabric-1.21.2
-                        TooltipRenderUtil.renderTooltipBackground((GuiGraphics) (Object)this, l, m, allWidth, allHeight,
+                        TooltipRenderUtil.extractTooltipBackground((GuiGraphicsExtractor) (Object)this, l, m, allWidth, allHeight,
     // IF <= fabric-1.21.5
 //                          400,
     // END IF

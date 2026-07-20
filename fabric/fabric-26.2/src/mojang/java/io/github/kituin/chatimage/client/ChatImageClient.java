@@ -21,7 +21,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 // END IF
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
@@ -58,7 +58,7 @@ public class ChatImageClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        configKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        configKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "config.chatimage.key",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_END,

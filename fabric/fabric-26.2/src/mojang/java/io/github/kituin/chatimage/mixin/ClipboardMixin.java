@@ -24,7 +24,7 @@ public class ClipboardMixin {
 
     @Inject(at = @At("RETURN"), method = "getClipboard", cancellable = true)
     public void getClipboard(CallbackInfoReturnable<String> cir) {
-        if (!(this.minecraft.screen instanceof net.minecraft.client.gui.screens.ChatScreen)) return;
+        if (!(this.minecraft.gui.screen() instanceof net.minecraft.client.gui.screens.ChatScreen)) return;
         String pasteImage = PasteToolkit.getPasteCompat().doPaste();
         if (pasteImage == null) return;
         cir.setReturnValue(pasteImage);

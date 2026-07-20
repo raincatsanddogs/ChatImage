@@ -34,8 +34,7 @@ public class FileDragMixin {
                                 int invalidFilesCount,
 // END IF
                                 CallbackInfo ci) {
-        if (this.minecraft.screen != null &&
-                this.minecraft.screen instanceof ChatScreen &&
+        if (this.minecraft.gui.screen() instanceof ChatScreen &&
                 this.minecraft.level != null && ChatImageClient.CONFIG.dragImage) {
             StringBuilder sb = new StringBuilder();
             for (Path o : paths) {
@@ -46,7 +45,7 @@ public class FileDragMixin {
                 }
             }
 // IF >= fabric-1.21.9
-            this.minecraft.setScreen(new ChatScreen(sb.toString(), true));
+            this.minecraft.gui.setScreen(new ChatScreen(sb.toString(), true));
 // ELSE IF fabric-1.16.5
 //            this.client.openScreen(new ChatScreen(sb.toString()));
 // ELSE

@@ -5,7 +5,7 @@ import io.github.kituin.chatimage.widget.GifSlider;
 import io.github.kituin.chatimage.widget.TimeOutSlider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.Tooltip;
@@ -16,7 +16,6 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.text.*;
 
 // END IF
 import static io.github.kituin.chatimage.client.ChatImageClient.CONFIG;
@@ -47,9 +46,9 @@ public class ConfigScreen extends Screen {
 //        drawCenteredTextWithShadow(matrices, this.textRenderer, title, this.width / 2, this.height / 4 - 16, 16764108);
 //    }
 // ELSE
-    public void render(GuiGraphics matrices, int mouseX, int mouseY, float delta) {
-        super.render(matrices, mouseX, mouseY, delta);
-        matrices.drawCenteredString(this.font, title, this.width / 2, this.height / 4 - 16, 16764108);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
+        graphics.centeredText(this.font, title, this.width / 2, this.height / 4 - 16, 16764108);
     }
 // END IF
 // IF >= fabric-1.19.3

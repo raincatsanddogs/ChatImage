@@ -35,7 +35,7 @@ public class ChatComponentMixin {
     private net.minecraft.client.Minecraft minecraft;
 
     @ModifyVariable(at = @At("HEAD"),
-            method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V",
+            method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/GuiMessageSource;Lnet/minecraft/client/multiplayer/chat/GuiMessageTag;)V",
             argsOnly = true)
     public net.minecraft.network.chat.Component addMessage(net.minecraft.network.chat.Component message) {
         if (io.github.kituin.chatimage.client.ChatImageClient.CONFIG.experimentalTextComponentCompatibility) {

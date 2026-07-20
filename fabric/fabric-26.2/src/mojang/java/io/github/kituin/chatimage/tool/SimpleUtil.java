@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.text.*;
 
 public class SimpleUtil {
 
@@ -12,7 +11,7 @@ public class SimpleUtil {
 // IF fabric-1.16.5
 //        client.openScreen(screen);
 // ELSE
-        client.setScreen(screen);
+        client.gui.setScreen(screen);
 // END IF
     }
     public static MutableComponent createTranslatableComponent(String text){
