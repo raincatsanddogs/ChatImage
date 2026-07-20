@@ -28,7 +28,7 @@ matches_rule() {
   return 1
 }
 
-if [[ "$TARGET_LOADER" == "fabric" && "$TARGET_VERSION" == "26.2" ]]; then
+if matches_rule ">=fabric-26.1"; then
   JAVA_VERSION=25
 else
   # **按照 JDK 21 → JDK 17 → JDK 8 顺序匹配**

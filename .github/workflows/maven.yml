@@ -7,8 +7,8 @@ on:
 permissions:
   contents: write
 env:
-  JAVA_21_RULE: ">=fabric-1.20.5,>=neoforge-1.20.2"
-  JAVA_17_RULE: ">=fabric-1.16.5,>=forge-1.17"
+  JAVA_21_RULE: ">=fabric-1.16.5,>=neoforge-1.20.2"
+  JAVA_17_RULE: ">=forge-1.17"
   JAVA_8_RULE: "=forge-1.16.5"
 jobs:
   generate-matrix:
