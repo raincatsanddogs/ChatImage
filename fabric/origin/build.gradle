@@ -1,5 +1,9 @@
 plugins {
-    id 'fabric-loom' version '1.14-SNAPSHOT'
+// IF fabric-26.2
+//    id 'net.fabricmc.fabric-loom' version '1.17.16'
+// ELSE
+//    id 'fabric-loom' version '1.14-SNAPSHOT'
+// END IF
     id 'maven-publish'
 }
 
