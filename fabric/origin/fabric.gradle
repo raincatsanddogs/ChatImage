@@ -21,7 +21,11 @@ ext.includeMod = { String localOverrideKey, Object dep ->
     if (file.exists()) {
         dependencies.implementation(dep)
     } else {
-        dependencies.modImplementation(dep)
+// IF fabric-26.2
+//        dependencies.implementation(dep)
+// ELSE
+//        dependencies.modImplementation(dep)
+// END IF
     }
     dependencies.include(dep)
 }
@@ -40,11 +44,27 @@ version = mod_version + "+" + project.minecraft_version + "+fabric"
 group = project.maven_group
 
 def targetJavaVersion = project.targetJavaVersion.toInteger()
+
+// IF fabric-26.2
+//sourceSets {
+//    main {
+//        java.setSrcDirs(["src/mojang/java"])
+//        resources.setSrcDirs(["src/mojang/resources"])
+//    }
+//}
+// END IF
+
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+// IF != fabric-26.2
+//    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+// END IF
+// IF fabric-26.2
+//    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+// ELSE
+//    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+// END IF
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     // modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -54,15 +74,23 @@ dependencies {
 //    includeMod "fabric-api", fabricApi.module("fabric-resource-loader-v0", project.fabric_version)
 // END IF
     includeMod "fabric-api", fabricApi.module("fabric-api-base", project.fabric_version)
-    includeMod "fabric-api", fabricApi.module("fabric-key-binding-api-v1", project.fabric_version)
+// IF fabric-26.2
+//    includeMod "fabric-api", fabricApi.module("fabric-key-mapping-api-v1", project.fabric_version)
+// ELSE
+//    includeMod "fabric-api", fabricApi.module("fabric-key-binding-api-v1", project.fabric_version)
+// END IF
     includeMod "fabric-api", fabricApi.module("fabric-networking-api-v1", project.fabric_version)
     includeMod "fabric-api", fabricApi.module(project.command_api, project.fabric_version)
     includeMod "fabric-api", fabricApi.module("fabric-lifecycle-events-v1", project.fabric_version)
-    include modImplementation("io.github.kituin:ChatImageCode:${code_version}")
-
-    include modImplementation("io.github.kituin:ActionLib:${project.action_version}-fabric")
-
-    modApi("com.terraformersmc:modmenu:${project.modmenu_version}") { transitive false }
+// IF fabric-26.2
+//    include implementation("io.github.kituin:ChatImageCode:${code_version}")
+//    include implementation("io.github.kituin:ActionLib:${project.action_version}-fabric")
+//    implementation("com.terraformersmc:modmenu:${project.modmenu_version}") { transitive false }
+// ELSE
+//    include modImplementation("io.github.kituin:ChatImageCode:${code_version}")
+//    include modImplementation("io.github.kituin:ActionLib:${project.action_version}-fabric")
+//    modApi("com.terraformersmc:modmenu:${project.modmenu_version}") { transitive false }
+// END IF
 }
 
 
@@ -107,10 +135,16 @@ jar {
         rename { "${it}_${project.archives_base_name}" }
     }
 }
-remapJar {
-    archiveBaseName.set(project.archives_base_name)
-    destinationDirectory  = file("../../ChatImage-jar/${mod_version}")
-}
+// IF fabric-26.2
+//tasks.jar {
+//    destinationDirectory = file("../../ChatImage-jar/${mod_version}")
+//}
+// ELSE
+//remapJar {
+//    archiveBaseName.set(project.archives_base_name)
+//    destinationDirectory  = file("../../ChatImage-jar/${mod_version}")
+//}
+// END IF
 publishing {
     publications {
         mavenJava(MavenPublication) {

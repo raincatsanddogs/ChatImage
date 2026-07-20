@@ -55,6 +55,13 @@ jobs:
           key: ${{ matrix.config.mc-version }}+${{ matrix.config.mc-loader }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ matrix.config.mc-version }}+${{ matrix.config.mc-loader }}-gradle-
+      - name: Publish ActionLib 1.3.2 to Maven Local
+        if: matrix.config.mc-loader == 'fabric' && matrix.config.mc-version == '26.2'
+        run: |
+          git clone --branch fabric-26.2 --depth 1 https://github.com/raincatsanddogs/ActionLib.git ../ActionLib
+          cd ../ActionLib
+          chmod 777 gradlew
+          ./gradlew clean publishToMavenLocal
       - name: Build And Publish Maven
         run: |
           cd ${{ matrix.config.mc-loader }}/${{ matrix.config.mc-loader }}-${{ matrix.config.mc-version }}
