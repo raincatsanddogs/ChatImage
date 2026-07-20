@@ -58,6 +58,10 @@ jobs:
           key: ${{ matrix.config.mc-version }}+${{ matrix.config.mc-loader }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ matrix.config.mc-version }}+${{ matrix.config.mc-loader }}-gradle-
+      - name: Prefetch ModMenu
+        run: |
+          chmod 777 prefetch_modmenu.sh
+          ./prefetch_modmenu.sh "${{ matrix.config.mc-loader }}/${{ matrix.config.mc-loader }}-${{ matrix.config.mc-version }}"
       - name: Publish ActionLib 1.3.2 to Maven Local
         if: matrix.config.mc-loader == 'fabric' && matrix.config.mc-version == '26.2'
         run: |
