@@ -30,6 +30,13 @@ for path in "${paths[@]}"; do
   for folder in $folders; do
     folderName=$(basename "$folder")
     if [[ "$folderName" != "origin" ]]; then
+      skipFile="$folder/.ci-skip"
+      if [[ -f "$skipFile" ]]; then
+        skipReason=$(tr '\r\n' ' ' < "$skipFile")
+        echo "Skipping $folderName: ${skipReason:-CI skip marker found}" >&2
+        continue
+      fi
+
       # 提取 mc-version 和 mc-loader 信息
       mcVersion="${folderName//$path-/}"
       mcLoader="$path"
