@@ -28,17 +28,21 @@ matches_rule() {
   return 1
 }
 
-# **按照 JDK 21 → JDK 17 → JDK 8 顺序匹配**
-for jdk in 21 17 8; do
-  eval "RULES=\$RULES_JDK$jdk"
-  IFS=',' read -ra RULES_ARRAY <<< "$RULES"
-  for rule in "${RULES_ARRAY[@]}"; do
-    if matches_rule "$rule"; then
-      JAVA_VERSION=$jdk
-      break 2
-    fi
+if [[ "$TARGET_LOADER" == "fabric" && "$TARGET_VERSION" == "26.2" ]]; then
+  JAVA_VERSION=25
+else
+  # **按照 JDK 21 → JDK 17 → JDK 8 顺序匹配**
+  for jdk in 21 17 8; do
+    eval "RULES=\$RULES_JDK$jdk"
+    IFS=',' read -ra RULES_ARRAY <<< "$RULES"
+    for rule in "${RULES_ARRAY[@]}"; do
+      if matches_rule "$rule"; then
+        JAVA_VERSION=$jdk
+        break 2
+      fi
+    done
   done
-done
+fi
 
 if [[ -z "$JAVA_VERSION" ]]; then
   echo "❌ No matching JDK version found for $TARGET_LOADER-$TARGET_VERSION"
